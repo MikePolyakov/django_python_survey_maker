@@ -1,17 +1,22 @@
 from django.core.management.base import BaseCommand
-from mixer.backend.django import mixer
-
-from constructor_app.models import Company
+from constructor_app.models import Company, Structure
+import string
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        count = 10
-        for i in range(count):
-            p = (i/count)*100
-            print(f'{i}) {p} %')
-            new_company = mixer.blend(Company)
-            print(new_company)
+        alphabet_string = string.ascii_uppercase
+        alphabet_list = list(alphabet_string)
+        print(alphabet_list)
+        structure = Structure.objects.get(department='нет структуры')
+        print(structure)
+
+        for each in alphabet_list:
+
+            new_name = 'Компания ' + each
+            print(new_name)
+            Company.objects.create(name=new_name,
+                                   structure=structure)
 
         print('end')

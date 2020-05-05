@@ -50,3 +50,20 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UserCategory(models.Model):
+    user_category = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.user_category
+
+
+class User(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    user_category = models.ForeignKey(UserCategory, on_delete=models.CASCADE)
+    email = models.EmailField(unique=True)
+    company = models.ManyToManyField(Company)
+
+    def __str__(self):
+        return self.name

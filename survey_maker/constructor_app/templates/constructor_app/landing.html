@@ -82,7 +82,7 @@
                 </li>
                 <li><a href="#testimonials-section" class="nav-link">Testimonials</a></li>
                 <li><a href="#blog-section" class="nav-link">Blog</a></li>
-                <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                <li><a href="#contact-section" class="nav-link">Контакт</a></li>
               </ul>
             </nav>
           </div>
@@ -296,47 +296,49 @@
 
             
 
-            <form action="#" class="p-5 bg-white">
+            <form action="#" class="p-5 bg-white" method="post">
               
-              <h2 class="h4 text-black mb-5">Contact Form</h2> 
+              <h2 class="h4 text-black mb-5">Напишите нам</h2>
+
+<!--              <div class="row form-group">-->
+<!--                <div class="col-md-6 mb-3 mb-md-0">-->
+<!--                  <label class="text-black" for="fname">First Name</label>-->
+<!--                  <input type="text" id="fname" class="form-control rounded-0">-->
+<!--                </div>-->
+<!--                <div class="col-md-6">-->
+<!--                  <label class="text-black" for="lname">Last Name</label>-->
+<!--                  <input type="text" id="lname" class="form-control rounded-0">-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="row form-group">-->
+<!--                -->
+<!--                <div class="col-md-12">-->
+<!--                  <label class="text-black" for="email">Email</label> -->
+<!--                  <input type="email" id="email" class="form-control rounded-0">-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="row form-group">-->
+<!--                -->
+<!--                <div class="col-md-12">-->
+<!--                  <label class="text-black" for="subject">Subject</label> -->
+<!--                  <input type="subject" id="subject" class="form-control rounded-0">-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--              <div class="row form-group">-->
+<!--                <div class="col-md-12">-->
+<!--                  <label class="text-black" for="message">Message</label> -->
+<!--                  <textarea name="message" id="message" cols="30" rows="7" class="form-control rounded-0" placeholder="Leave your message here..."></textarea>-->
+<!--                </div>-->
+<!--              </div>-->
+              {% csrf_token %}
+              {{ form.as_p }}
 
               <div class="row form-group">
-                <div class="col-md-6 mb-3 mb-md-0">
-                  <label class="text-black" for="fname">First Name</label>
-                  <input type="text" id="fname" class="form-control rounded-0">
-                </div>
-                <div class="col-md-6">
-                  <label class="text-black" for="lname">Last Name</label>
-                  <input type="text" id="lname" class="form-control rounded-0">
-                </div>
-              </div>
-
-              <div class="row form-group">
-                
                 <div class="col-md-12">
-                  <label class="text-black" for="email">Email</label> 
-                  <input type="email" id="email" class="form-control rounded-0">
-                </div>
-              </div>
-
-              <div class="row form-group">
-                
-                <div class="col-md-12">
-                  <label class="text-black" for="subject">Subject</label> 
-                  <input type="subject" id="subject" class="form-control rounded-0">
-                </div>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-md-12">
-                  <label class="text-black" for="message">Message</label> 
-                  <textarea name="message" id="message" cols="30" rows="7" class="form-control rounded-0" placeholder="Leave your message here..."></textarea>
-                </div>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-md-12">
-                  <input type="submit" value="Send Message" class="btn btn-primary mr-2 mb-2">
+                  <input type="submit" value="Отправить" class="btn btn-primary mr-2 mb-2">
                 </div>
               </div>
 
