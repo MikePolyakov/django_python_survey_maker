@@ -1,7 +1,6 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from .forms import ContactForm
 from django.views.generic import ListView, DetailView, CreateView
@@ -11,16 +10,6 @@ from .models import Structure, Company
 
 
 # Create your views here.
-def main_view(request):
-    pass
-    return render(request, 'constructor_app/index.html', context={})
-
-
-def companies_view(request):
-    companies = Company.objects.all()
-    return render(request, 'constructor_app/companies.html', context={'companies': companies})
-
-
 def landing_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -33,8 +22,8 @@ def landing_view(request):
 
             send_mail(
                 'Contact message',
-                f'Ваш сообщение {message} принято',
-                'from@example.com',
+                f'Ваш сообщение "{subject}" принято',
+                'id2k1149@gmail.com',
                 [email],
                 fail_silently=True,
             )
@@ -48,76 +37,31 @@ def landing_view(request):
         return render(request, 'constructor_app/landing.html', context={'form': form})
 
 
-def show_structure(request):
-    pass
-    return render(request, 'constructor_app/structure.html', {'department': Structure.objects.all()})
-
-
+# ListView
 class CompaniesListView(ListView):
-    # model = Article
-    # queryset = Company.objects.select_related('user').all()
-    queryset = Company.objects.all()
-    template_name = 'constructor_app/companies.html'
-    # ordering = ['-date']
-    # paginate_by = 5
-    # если хотим изменить имя  object_list
-    # context_object_name = 'news_list'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        # context['count'] = 4
-        return context
-
-
-# DetailView для поста
-# class CompanyDetailView(UserPassesTestMixin, DetailView):
-#     # queryset = Company.objects.select_related('user').all()
-#     queryset = Company.objects.get(id=id)
-#     template_name = 'constructor/company_details.html'
-#
-#     def test_func(self):
-#         return self.request.user.is_superuser
-#
-#     def handle_no_permission(self):
-#         return redirect('users:login')
-#
-#     def get(self, request, *args, **kwargs):
-#         self.company_id = kwargs['pk']
-#         return super().get(request, *args, **kwargs)
-#
-#     def get_object(self):
-#         return get_object_or_404(Company, pk=self.company_id)
-
-def company(request, id):
-    company = get_object_or_404(Company, id=id)
-    company = Company.objects.get(id=id)
-    return render(request, 'constructor_app/company.html', context={'company': company})
-
-
-
-# CreateView for article
-# class CompanyCreateView(CreateView):
-#     # form_class =
-#     queryset = Company.objects.select_related('source')
-#     fields = ('name', 'url', 'source')
-#     # model = Article
-#     # fields = '__all__'
-#     success_url = reverse_lazy('covid_19:news')
-#     template_name = 'constructor_app/add_company.html'
-#
-#     def post(self, request, *args, **kwargs):
-#         return super().post(request, *args, **kwargs)
-#
-#     def form_valid(self, form):
-#         return super().form_valid(form)
-
-
-# добавление company
-class CompanyCreateView(CreateView):
-    fields = '__all__'
     model = Company
-    success_url = reverse_lazy('survey_maker:company')
-    template_name = 'constructor_app/add_company.html'
+    template_name = 'constructor_app/companies.html'
+
+
+# DetailView
+class CompanyDetailView(DetailView):
+    model = Company
+    template_name = 'constructor_app/company.html'
+
+
+# CreateView
+class CompanyCreateView(CreateView):
+    fields = ('name',)
+    model = Company
+    success_url = reverse_lazy('constructor:companies')
+    template_name = 'constructor_app/create.html'
+
+    # def someview(request):
+    #     form = SomeForm(..)
+    #
+    #     if some_condition:
+    #         name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
+    #         form.fields['email'].widget.attrs['placeholder'] = instance.email
 
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)

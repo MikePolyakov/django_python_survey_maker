@@ -3,6 +3,14 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 # Create your models here.
+class Company(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    logo = models.ImageField(null=True, blank=True, upload_to='company')
+
+    def __str__(self):
+        return self.name
+
+
 class QuestionType(models.Model):
     question_type_name = models.CharField(max_length=64)
 
@@ -19,6 +27,7 @@ class Question(models.Model):
 
 
 class Survey(models.Model):
+    company = models.ManyToManyField(Company)
     name = models.CharField(max_length=64)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -29,6 +38,7 @@ class Survey(models.Model):
 
 
 class Structure(MPTTModel):
+    company = models.ManyToManyField(Company)
     department = models.CharField(max_length=64, unique=True)
     head_of_department = models.CharField(max_length=64, null=True, blank=True)
     code = models.PositiveIntegerField(null=True, blank=True)
@@ -40,16 +50,6 @@ class Structure(MPTTModel):
 
     def __str__(self):
         return self.department
-
-
-class Company(models.Model):
-    name = models.CharField(max_length=64, unique=True)
-    structure = models.ForeignKey(Structure, on_delete=models.CASCADE)
-    surveys = models.ManyToManyField(Survey)
-    logo = models.ImageField(null=True, blank=True, upload_to='company')
-
-    def __str__(self):
-        return self.name
 
 
 class UserCategory(models.Model):
