@@ -10,6 +10,11 @@ from .models import Structure, Company
 
 
 # Create your views here.
+def main_view(request):
+    pass
+    return render(request, 'constructor:index')
+
+
 def landing_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
