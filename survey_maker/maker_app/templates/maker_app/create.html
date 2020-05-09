@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Карточка компании {% endblock %}
+{% block title %} Создать компанию {% endblock %}
 
 {% block content %}
 <div id="content">
@@ -69,70 +69,46 @@
 
 
         <!-- Page Heading -->
-        <div>
-            {% if company.logo %}
-
-            <div>
-                <i class="fa">
-                    <img src="{{company.logo.url}}" width="40"> Карточка компании
-                    <a class="collapse-item" href="{% url 'constructor:companies' %}">
-                        <i class="fa fa-ellipsis-v"> </i>
-                    </a>
-
-
-                </i>
-            </div>
-
-            {% else %}
-            <i class="fa fa-sitemap"> Карточка компании</i>
-            <i class="fa fa-ellipsis-v"></i>
-            {% endif %}
-
-        </div>
-        <!--          <i class="fa fa-sitemap"> Компания</i>-->
+        <i class="fa fa-sitemap"> Компании</i>
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ company.name }}</h1>
-
-
-            <!--            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-sm text-white-50"></i>СОЗДАТЬ КОМПАНИЮ</a>-->
+            <h1 class="h3 mb-0" style="color:black;">Создание Компании</h1>
         </div>
+
 
         <!-- Content Row -->
 
-        <div class="row col-md-12">
-            <!--            {% for item in object_list %}-->
+        <div>
+            <h1 class="h1 mb-0" style="color:black; text-align:center">Название Компании</h1>
 
-            <!--            &lt;!&ndash; Companies Cards  &ndash;&gt;-->
-            <!--            <div class="col-xl-3 col-md-6 mb-4">-->
-            <!--              <div class="card border-left-primary shadow h-100 py-2">-->
-            <!--                <div class="card-body">-->
-            <!--                  <div class="row no-gutters align-items-center">-->
-            <!--                    <div class="col mr-2">-->
-            <!--                      <a href="{% url 'constructor:company' pk=item.pk %}">-->
-            <!--                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ item.name }}</div>-->
-            <!--                      </a>-->
-            <!--                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ item.structure }}</div>-->
-            <!--                    </div>-->
-            <!--                    <div class="col-auto">-->
-            <!--                      {% if item.logo %}-->
-            <!--                           <img src="{{item.logo.url}}" width="40">-->
-            <!--                      {% else %}-->
-            <!--                           <i class="fas fa-sitemap fa-2x text-gray-300"> </i>-->
-            <!--                      {% endif %}-->
-            <!--                    </div>-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </div>-->
+            <div style="text-align:center;">
+                <br>
+                <h6>Введите название компании.</h6>
+                <h6>Загрузить логотип, создать сруктуру,</h6>
+                <h6>добавить пользователей вы cможете в настройках компании.</h6>
+            </div>
+            <form method="post" enctype="multipart/form-data" style="text-align:center;">
+                {% csrf_token %}
+                {# form.as_ul #}
+                {% for field in form %}
+                {% for error in field.errors %}
+                {{error}}
+                {% endfor %}
+                <p placeholder="Введите название предприятия, управления…">{{field}}</p>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary" style="text-align:center;">СОЗДАТЬ КОМПАНИЮ</button>
+            </form>
+            <br>
+            <div style="text-align:center;">
+                <a href="{% url 'maker:companies' %}">ОТМЕНИТЬ</a>
+            </div>
+            <br>
 
-            <!--            {% endfor %}-->
         </div>
 
+
+        <!-- /.container-fluid -->
+
     </div>
-    <!-- /.container-fluid -->
 
+    {% endblock %}
 </div>
-
-{% endblock %}
-
-

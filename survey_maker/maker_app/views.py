@@ -1,9 +1,11 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from .forms import ContactForm
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.views import LoginView
 
 
 from .models import Structure, Company
@@ -12,7 +14,7 @@ from .models import Structure, Company
 # Create your views here.
 def main_view(request):
     pass
-    return render(request, 'constructor:index')
+    return render(request, 'maker:index')
 
 
 def landing_view(request):
@@ -33,33 +35,36 @@ def landing_view(request):
                 fail_silently=True,
             )
 
-            return HttpResponseRedirect(reverse('constructor:index'))
+            return HttpResponseRedirect(reverse('maker:index'))
 
         else:
-            return render(request, 'constructor_app/landing.html', context={'form': form})
+            return render(request, 'maker_app/landing.html', context={'form': form})
     else:
         form = ContactForm()
-        return render(request, 'constructor_app/landing.html', context={'form': form})
+        return render(request, 'maker_app/landing.html', context={'form': form})
 
 
 # ListView
 class CompaniesListView(ListView):
     model = Company
-    template_name = 'constructor_app/companies.html'
+    template_name = 'maker_app/companies.html'
 
 
 # DetailView
-class CompanyDetailView(DetailView):
+class CompanyDetailView(UserPassesTestMixin, DetailView):
     model = Company
-    template_name = 'constructor_app/company.html'
+    template_name = 'maker_app/company.html'
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 # CreateView
-class CompanyCreateView(CreateView):
+class CompanyCreateView(LoginRequiredMixin, CreateView):
     fields = ('name',)
     model = Company
-    success_url = reverse_lazy('constructor:companies')
-    template_name = 'constructor_app/create.html'
+    success_url = reverse_lazy('maker:companies')
+    template_name = 'maker_app/create.html'
 
     # def someview(request):
     #     form = SomeForm(..)
@@ -73,3 +78,10 @@ class CompanyCreateView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+
+class UserLoginView(LoginView):
+    template_name = 'maker_app/login.html'
+
+
+

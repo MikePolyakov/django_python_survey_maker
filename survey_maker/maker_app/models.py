@@ -1,13 +1,13 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-from users_app.models import SurveyUser
+from user_app.models import User
 
 
 # Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=64, unique=True)
     logo = models.ImageField(null=True, blank=True, upload_to='company')
-    user = models.ManyToManyField(SurveyUser, blank=True)
+    user = models.ManyToManyField(User, blank=True)
 
     class Meta:
         verbose_name = 'Компания'
@@ -50,9 +50,6 @@ class Page(models.Model):
     class Meta:
         verbose_name = 'Страница'
         verbose_name_plural = 'Страницы'
-
-    def __str__(self):
-        return self.question_name
 
 
 class Survey(models.Model):

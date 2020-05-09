@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from constructor_app.models import Company
+from maker_app.models import Company
 import string
 
 

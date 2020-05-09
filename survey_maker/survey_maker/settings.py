@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mptt',
-    'constructor_app',
-    'users_app',
+    'maker_app',
+    'user_app',
 ]
 
 MIDDLEWARE = [
@@ -134,12 +134,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = '/tmp/emails'
 
 # Переназначение модели пользователя
-AUTH_USER_MODEL = 'users_app.SurveyUser'
+AUTH_USER_MODEL = 'user_app.User'
 
 # Переходы
-# Куда идти после логина
-LOGIN_REDIRECT_URL = '/'
-# Куда идти после выхода
-LOGOUT_REDIRECT_URL = '/'
 # Куда идти на логин
-LOGIN_URL = '/users/login/'
+LOGIN_URL = '/user/login/'
+# Куда идти после логина
+LOGIN_REDIRECT_URL = '/companies/'
+# Куда идти после выхода
+LOGOUT_REDIRECT_URL = '/landing/'

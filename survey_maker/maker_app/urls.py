@@ -1,7 +1,7 @@
 from django.urls import path
-from constructor_app import views
+from maker_app import views
 
-app_name = 'constructor_app'
+app_name = 'maker_app'
 
 
 urlpatterns = [
