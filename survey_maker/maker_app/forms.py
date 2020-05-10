@@ -7,5 +7,3 @@ class ContactForm(forms.Form):
     subject = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class': "form-control rounded-0"}))
     message = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'placeholder': 'Напишите здесь...',
                                                                               'class': "form-control rounded-0"}))
-
-

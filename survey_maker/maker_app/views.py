@@ -5,7 +5,6 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from .forms import ContactForm
 from django.views.generic import ListView, DetailView, CreateView
-from django.contrib.auth.views import LoginView
 
 
 from .models import Structure, Company
@@ -80,8 +79,9 @@ class CompanyCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UserLoginView(LoginView):
-    template_name = 'maker_app/login.html'
+
+
+
 
 
 

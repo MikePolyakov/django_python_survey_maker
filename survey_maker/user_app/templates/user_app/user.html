@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} Пользователь {% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="col">
+        {% if user.avatar %}
+        <img src="{{user.avatar.url}}" width="40">
+        {% else %}
+        <i class="fas fa-sitemap fa-2x text-gray-300"> </i>
+        {% endif %}
+    </div>
+    <div class="col">
+        {{ user.email }}{{ user.first_name }}{{ user.last_name }}
+    </div>
+
+
+</div>
+{% endblock %}
+
